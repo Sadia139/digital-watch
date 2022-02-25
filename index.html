@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+</head>
+<style>
+    body {
+        background-color: #f1f1f2;
+    }
+
+    .my-watch {
+        top: 35%;
+        left: 34%;
+        position: fixed;
+        background-color: aliceblue;
+        padding: 50px;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+
+    }
+
+    span {
+        font-size: 50px;
+    }
+</style>
+
+<body>
+    <div class="my-watch">
+        <span class="h"></span>
+        <span class="m"></span><br>
+        <span class="date"></span>
+    </div>
+
+    <script>
+        const dateTime = () => {
+            const date = new Date();
+
+            const min = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes();
+            const sec = (date.getSeconds() < 10) ? "0" + date.getSeconds() : date.getSeconds();
+            const m = (date.getHours() >= 12) ? "PM" : "AM";
+
+            if (date.getHours() === 0) {
+                hr = 12;
+
+            }
+            else if (date.getHours() > 12) {
+                hr = date.getHours() - 12;
+            }
+            else {
+                hr = date.getHours();
+            }
+            const currentTime = `${hr} : ${min} : ${sec}`;
+
+            document.getElementsByClassName("h")[0].innerHTML = currentTime;
+            document.getElementsByClassName("m")[0].innerHTML = m;
+            const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            const days = new Date().getDate();
+
+            const currentDay = day[date.getDay()] + "," + month[date.getMonth()] + " " + days;
+            document.getElementsByClassName("date")[0].innerHTML = currentDay;
+            console.log(currentDay)
+        }
+        dateTime()
+        setInterval(() => {
+            dateTime()
+        }, [1000])
+    </script>
+</body>
+
+</html>
